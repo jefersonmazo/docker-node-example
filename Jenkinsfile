@@ -1,6 +1,7 @@
 pipeline {
 
     environment {
+        githubCrendetialId = credentials('Token-GitHub-jruiz16')
         registry = "jeruiz16/node-example"
         registryCredential = '384f0f74-6b28-43f4-a996-93fc368b4fd4'
         dockerImage = ''
@@ -15,7 +16,7 @@ pipeline {
         }
         stage('Clonando repositorio') {
             steps {
-            git 'git@github.com:jruiz16/docker-node-example.git'
+            git(url: 'https://github.com/jruiz16/docker-node-example.git', githubCrendetialId)
             }
         }
         stage('Building Docker Image') {
