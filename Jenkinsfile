@@ -12,31 +12,31 @@ pipeline {
             steps {
                 echo 'Iniciar Build..'
             }
-            stage('Clonando repositorio') {
-                steps {
-                git 'git@github.com:jruiz16/docker-node-example.git'
+        }
+        stage('Clonando repositorio') {
+            steps {
+            git 'git@github.com:jruiz16/docker-node-example.git'
+            }
+        }
+        stage('Building Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
-            stage('Building Docker Image') {
-                steps {
-                    script {
-                        dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
+        stage('Deploying Docker Image to Dockerhub') {
+            steps {
+                script {
+                    docker.withRegistry('', registryCredential) {
+                    dockerImage.push()
                     }
                 }
             }
-            stage('Deploying Docker Image to Dockerhub') {
-                steps {
-                    script {
-                        docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
-                        }
-                    }
-                }
-            }
-            stage('Cleaning Up') {
-                steps{
-                  sh "docker rmi --force $registry:$BUILD_NUMBER"
-                }
+        }
+        stage('Cleaning Up') {
+            steps{
+                sh "docker rmi --force $registry:$BUILD_NUMBER"
             }
         }
         stage('Test') {
