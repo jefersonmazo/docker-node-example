@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "10.0.0.144",
-  USER: "gesDocCmi",
-  PASSWORD: "Arus2019**.",
-  DB: "nodejs",
+  HOST: process.env.SECRET_HOST_DB,
+  USER: process.env.SECRET_DATABASE_DB,
+  PASSWORD: process.env.SECRET_USERNAME_DB,
+  DB: process.env.SECRET_PASSWORD_DB,
   dialect: "mysql",
   pool: {
     max: 5,
