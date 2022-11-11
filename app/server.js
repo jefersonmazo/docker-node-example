@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extends: true }));
 
 require("./routes/estudiantes.routes")(app);
 require("./routes/productosFerreteria.routes")(app);
+
 const PORT = 8081;
 
 db.sequelize.sync({ force: false }).then(() => {
