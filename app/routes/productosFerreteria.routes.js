@@ -5,6 +5,7 @@ module.exports = (app) => {
   router.post("/productosFerreteria/crear", productosFerreteria.create);
   router.get("/test", function (req, res) {
     res.send({
+        valor: process.env.VARIABLE_ENTORNO,
         nodo: process.env.MY_NODE_NAME,
         pod: process.env.MY_POD_NAME
     });
